@@ -1,83 +1,116 @@
 #include <iostream>
+#define N 10
+
 using namespace std;
+
+int size = 0;
 
 class linkedListClass{
 public:
-    linkedListClass *previous;
-    int data;
-    linkedListClass *next;
+    int *previous = nullptr;
+    int data = 0;
+    int *next = nullptr;
 };
 
-void showList(linkedListClass *rootElement){
 
-    linkedListClass *showPointer = rootElement;
 
-    do {
-        cout << "Previous element adress:\t" << showPointer->previous << "\t Data:\t" << showPointer->data << "/Data adress: \t"<< showPointer << "\t Next element adress: \t" << showPointer->next<< endl;
-        showPointer = showPointer->next;
-    } while (showPointer != nullptr);
-};
 
-linkedListClass*  inputElement(linkedListClass *currentElement){
+void inputElement(linkedListClass *linkedList){
 
     int x;
-    cout << "Input new element:" << endl;
+    size++;
+    linkedListClass *previousPointer = linkedList;
+    previousPointer[size-1] = previousPointer[size];
+
+    cout << "Input element" << endl;
     cin >> x;
 
-    linkedListClass *newElement = new linkedListClass();
+    linkedList->data = x;
+    linkedList->previous = &previousPointer->data;
+    linkedList->next = nullptr;
 
-    newElement->data = x;
-    newElement->previous = currentElement;
+    cout << "Previous pointer of linkedList: \t" <<linkedList->previous << endl;
+    cout << "Data of linkedList: \t" <<linkedList->data << endl;
+    cout << "Next pointer of linkedList: \t" <<linkedList->next << endl;
+    cout << "Size of list: \t" << size << endl;
 
-    currentElement->next = newElement;
-    currentElement = newElement;
-    return (currentElement);
-};
+    //linkedList = (linkedListClass *) realloc( linkedList, sizeof(linkedListClass)*size);
 
 /*
-void deleteElements(linkedListClass *rootElement){
 
-    linkedListClass *deletePointer = rootElement;
 
-    deletePointer = deletePointer->next;
-    do{
-        free(deletePointer->previous);
-    } while (deletePointer != nullptr);
-}
+    cout << "Previous pointer of linkedList: \t" <<linkedListPointer->previous << endl;
+    cout << "Data of linkedList: \t" <<linkedListPointer->data << endl;
+    cout << "Next pointer of linkedList: \t" <<linkedListPointer->next << endl;
+    cout << "Size of list: \t" << size << endl;
+*/
+};
+
+void showList(linkedListClass *rootPointer){
+    int i = 0;
+        for (rootPointer[i];i<size;i++){
+            cout << i <<". Previous pointer:\t" << rootPointer[i].previous  << "\n Data:\t " << rootPointer[i].data<< "\n Next pointer: \t"  <<  rootPointer[i].next<< endl;
+        }
+};
+
+/*void createNode(linkedListClass *rootPointer){
+    int x;
+    cout << "Input root element: "<< endl;
+    cin >> x;
+
+    rootPointer->data=x;
+};
 */
 
 int main() {
     int x;
+    bool root;
 
-    // Initialization root
+    int *linkedListPointer;
 
-    linkedListClass *rootElement = new linkedListClass();
-
+    linkedListClass *linkedList = new linkedListClass[N];
+    linkedListClass *rootPointer = &linkedList[0];
     cout << "Input root element:" << endl;
     cin >> x;
-    rootElement->data = x;
+    rootPointer->data = x;
+    size++;
 
-    linkedListClass *currentElement = rootElement;
+
+
+    cout << "Previous pointer of linkedListPointer: \t" <<linkedList->previous << endl;
+    cout << "Data of linkedListPointer: \t" <<linkedList->data << endl;
+    cout << "Next pointer of linkedListPointer: \t" <<linkedList->next << endl;
+    cout << "linkedList: \t" << linkedList << endl;
+    cout << "rootPointer: \t" << rootPointer << endl;
+   // createNode(rootPointer);
+   // size++;
+
+  //  cout << "Size of linkedListClass is: \t" << sizeof(linkedListClass) << endl;
+  //  cout << "Size of linkedListPointer is: \t" << sizeof(linkedListPointer) << endl;
 
     mark:
-    cout << "Choose option:\n 0. Exit programm \n 1. Add new element \n 2. Find element \n 3. Delete element \n 4. Show list\n"  << endl;
+    cout << "Choose option:\n 1. Add new element \n 2. Find element \n 3. Delete element \n 4. Show list\n"  << endl;
     cin >> x;
 
     switch (x){
         case 0:
             break;
         case 1:
-           currentElement = inputElement(currentElement);
+            size++;
+            inputElement(linkedList);
             goto mark;
         case 4:
-           showList(rootElement);
+            showList(rootPointer);
             goto mark;
         default:
             cout << "Input your option again" << endl;
             goto mark;
     }
 
-  //  deleteElements(rootElement);
+
+
+    delete linkedListPointer;
+    //delete rootPointer;
     cout << "Press button to exit" << endl;
     cin >> x;
     return 0;
