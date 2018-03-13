@@ -1,3 +1,0 @@
-R:/Documents/Study/4 semestr/Zhidanov/CLion Projects/Linked List NEW/cmake-build-debug/CMakeFiles/edit_cache.dir
-R:/Documents/Study/4 semestr/Zhidanov/CLion Projects/Linked List NEW/cmake-build-debug/CMakeFiles/Linked_List_NEW.dir
-R:/Documents/Study/4 semestr/Zhidanov/CLion Projects/Linked List NEW/cmake-build-debug/CMakeFiles/rebuild_cache.dir
