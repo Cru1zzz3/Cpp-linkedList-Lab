@@ -9,23 +9,29 @@ public:
 };
 
 void showList(linkedListClass *rootElement){
-
     linkedListClass *showPointer = rootElement;
 
     do {
         cout << "Previous element adress: " << showPointer->previous << "\t Data: " << showPointer->data << " / Data adress: "<< showPointer << "\t Next element adress:\t " << showPointer->next<< endl;
         showPointer = showPointer->next;
     } while (showPointer != nullptr);
-	cout << "\n" << endl;
+    cout << "\n" << endl;
 };
 
 linkedListClass*  inputElement(linkedListClass *currentElement){
-
     int x;
     cout << "Input new element: ";
     cin >> x;
-	cout << endl;
+    cout << endl;
+
     linkedListClass *newElement = new linkedListClass();
+
+    if (currentElement->next != nullptr){
+        newElement->next = currentElement->next;
+        newElement->previous = currentElement;
+        currentElement = newElement->next;
+        currentElement->previous = newElement;
+    }
 
     newElement->data = x;
     newElement->previous = currentElement;
@@ -37,77 +43,69 @@ linkedListClass*  inputElement(linkedListClass *currentElement){
 
 /*
 void deleteElements(linkedListClass *rootElement){
-
     linkedListClass *deletePointer = rootElement;
-
     deletePointer = deletePointer->next;
     do{
         free(deletePointer->previous);
     } while (deletePointer != nullptr);
 }
 */
-
 linkedListClass* findElement(linkedListClass *rootElement){
-	int x;
+    int x;
     cout << "Find element with data: ";
     cin >> x;
-	cout << endl;
+    cout << endl;
 
-	linkedListClass *findPointer = rootElement;
+    linkedListClass *findPointer = rootElement;
+    while (findPointer != nullptr){
+        if(findPointer->data != x){
+            findPointer = findPointer->next;
+        }
+        else {
+            cout << "Element with data "<< findPointer->data << " was found!" << endl;
+            cout << "Previous element adress: " << findPointer->previous << "\t Data: " << findPointer->data << " / Data adress: "<< findPointer << "\t Next element adress:\t " << findPointer->next<< endl << endl;
+            return (findPointer);
+        }
+    }
 
-	while (findPointer != nullptr){
-		if(findPointer->data != x){
-			findPointer = findPointer->next;
-		}
-		else {
-			cout << "Element with data "<< findPointer->data << " was found!" << endl;
-			cout << "Previous element adress: " << findPointer->previous << "\t Data: " << findPointer->data << " / Data adress: "<< findPointer << "\t Next element adress:\t " << findPointer->next<< endl << endl;
-			return (findPointer);
-			 
-		} 
-	}
-	cout << " No element with data "<< findPointer->data << endl; 
+    cout << " No element with data "<< findPointer->data << endl;
+    return (rootElement);
 };
 
 int main() {
     int x;
-
     // Initialization root
-
     linkedListClass *rootElement = new linkedListClass();
-
     cout << "Input root element: ";
     cin >> x;
-	cout << endl;
-    rootElement->data = x;
+    cout << endl;
 
+    rootElement->data = x;
     linkedListClass *currentElement = rootElement;
 
     mark:
     cout << "Choose option:\n 0. Exit programm \n 1. Add new element \n 2. Find element \n 3. Delete element \n 4. Show list\n"  << endl;
-	cout << "My option is: ";
+    cout << "My option is: ";
     cin >> x;
-	cout << endl;
+    cout << endl;
+
     switch (x){
         case 0:
             break;
         case 1:
-           currentElement = inputElement(currentElement);
+            currentElement = inputElement(currentElement);
             goto mark;
-		case 2:
-			currentElement = findElement(rootElement);
-			goto mark;
+        case 2:
+            currentElement = findElement(rootElement);
+            goto mark;
         case 4:
-           showList(rootElement);
+            showList(rootElement);
             goto mark;
         default:
             cout << "Input your option again" << endl;
             goto mark;
     }
-
-	
-
-  //deleteElement(rootElement);
+    //deleteElement(rootElement);
 
     cout << "Bye :c" << endl;
     getchar();
