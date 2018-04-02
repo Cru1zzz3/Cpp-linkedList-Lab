@@ -3,6 +3,19 @@
 
 using namespace std;
 
+linkedListClass* linkedListClass::createRootElement(linkedListClass *rootElement){
+	int x;
+    cout << "Input root element: ";
+    cin >> x;
+	cout << endl;
+    rootElement->data = x;
+	return (rootElement);
+};
+
+void linkedListClass::getCurrentElement(linkedListClass* currentElement){
+	cout << "\nCurrent element is: " << currentElement->data << endl;
+};
+
 linkedListClass* linkedListClass::inputElement(linkedListClass *currentElement){
 		int x;
 		cout << "Input new element: ";
@@ -75,27 +88,23 @@ linkedListClass* linkedListClass::deletingElement(linkedListClass *currentElemen
 		delete(deleteElement);
 		cout << "Element with data "<< tempData << " sucssessfully deleted!" << endl;
 		return (currentElement);
-
-    
 	}
 
-linkedListClass* linkedListClass::deletingRootElement(linkedListClass *rootElement){
+linkedListClass* linkedListClass::deletingRootElement(linkedListClass *currentElement){
 
-		linkedListClass *deleteElement = rootElement;
-		if (deleteElement->next == nullptr){
+		linkedListClass *deleteElement = currentElement;
+		if ((deleteElement->next == nullptr) && (deleteElement == nullptr)){
 		cout << "Can't delete last element of list!!!"<< endl;
-		return (rootElement);
-		}
-
-		linkedListClass *currentElement = deleteElement->next;
-
-		int tempData = deleteElement->data;
-		currentElement->previous = nullptr;
-
-		delete(deleteElement);
-		cout << "Root element with data "<< tempData << " sucssessfully deleted!" << endl;
 		return (currentElement);
-	
+		}
+		else {
+			linkedListClass *currentElement = deleteElement->next;
+			int tempData = deleteElement->data;
+			currentElement->previous = nullptr;
+			delete(deleteElement);
+			cout << "Root element with data "<< tempData << " sucssessfully deleted!" << endl;
+			return (currentElement);
+		}
 	};
 
 void  linkedListClass::showList(linkedListClass *rootElement){
@@ -111,4 +120,6 @@ void  linkedListClass::showList(linkedListClass *rootElement){
 			cout << "Linked list is empty! Input root element!" << endl;
 		}
 	}
+
+
 

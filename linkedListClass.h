@@ -3,17 +3,14 @@
 
 
 class linkedListClass{
-	
 	private:
-		
-	protected:
-	public:
 		linkedListClass *previous;
 		int data;
 		linkedListClass *next;
-
-		linkedListClass*  inputElement(linkedListClass *currentElement);
-
+	public:
+		void getCurrentElement(linkedListClass* currentElement);
+		linkedListClass* createRootElement(linkedListClass *rootElement);
+		linkedListClass* inputElement(linkedListClass *currentElement);
 		linkedListClass* findElement(linkedListClass *rootElement);
 		linkedListClass* deletingElement(linkedListClass *currentElement);
 		linkedListClass* deletingRootElement(linkedListClass *rootElement);
